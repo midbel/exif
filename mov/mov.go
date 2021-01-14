@@ -97,7 +97,7 @@ func (f File) DecodeProfile() (Profile, error) {
 func findAtom(atom string, r io.ReadSeeker) (io.Reader, error) {
 	var (
 		buf = make([]byte, 8)
-		rs io.Reader
+		rs  io.Reader
 	)
 	for {
 		if _, err := io.ReadFull(r, buf); err != nil {
