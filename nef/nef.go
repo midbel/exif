@@ -11,6 +11,7 @@ import (
 	_ "image/jpeg"
 	"io"
 	"io/ioutil"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -517,6 +518,15 @@ func (f File) get(id uint16) (Tag, error) {
 		return t, fmt.Errorf("%04x: %w", id, ErrExist)
 	}
 	return f.tiff[x], nil
+}
+
+func DecodeFile(file string) ([]*File, error) {
+	r, err := os.Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer r.Close()
+	return Decode(r)
 }
 
 func Decode(r io.Reader) ([]*File, error) {
